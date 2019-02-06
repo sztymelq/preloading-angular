@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CustomPreloader } from './custom-preloader';
+import { Guard } from './guard';
 
 const routes: Routes = [
   {

@@ -1,13 +1,13 @@
-import { PreloadingStrategy, Route, Router } from '@angular/router';
+import { PreloadingStrategy, Route } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class CustomPreloader implements PreloadingStrategy {
 
-  constructor(private router: Router) {}
+  constructor() {}
 
-  routesMap = {
+  nextRouteMap = {
     '': 'pax-select',
     'pax-select': 'seats-allocation',
     'seats-allocation': 'checkin-extras',
@@ -15,12 +15,14 @@ export class CustomPreloader implements PreloadingStrategy {
   };
 
   preload(route: Route, fn: Function): Observable<boolean> {
-    const routeName = this.router.url.slice(1, this.router.url.length);
     console.log('route', route);
-    if (this.routesMap[routeName] === route.path) {
+    const routeName = location.pathname.slice(1, location.pathname.length);
+
+    if (this.nextRouteMap[routeName] === route.path) {
       console.log('Preloaded: ', route.path);
       return fn();
     }
+
     return of(false);
   }
 }
