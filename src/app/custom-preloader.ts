@@ -7,7 +7,7 @@ export class CustomPreloader implements PreloadingStrategy {
 
   constructor() {}
 
-  nextRouteMap = {
+  routeTransitionMapping = {
     '': 'pax-select',
     'pax-select': 'seats-allocation',
     'seats-allocation': 'checkin-extras',
@@ -15,11 +15,9 @@ export class CustomPreloader implements PreloadingStrategy {
   };
 
   preload(route: Route, fn: Function): Observable<boolean> {
-    console.log('route', route);
     const routeName = location.pathname.slice(1, location.pathname.length);
 
-    if (this.nextRouteMap[routeName] === route.path) {
-      console.log('Preloaded: ', route.path);
+    if (this.routeTransitionMapping[routeName] === route.path) {
       return fn();
     }
 
